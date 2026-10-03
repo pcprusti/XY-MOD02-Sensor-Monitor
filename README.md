@@ -40,3 +40,8 @@ The monitor polls the sensor every two seconds and reads these input registers:
 - If the sensor does not respond, check the slave address and serial settings against the sensor configuration.
 - Check the status line for connection errors. The readings remain as placeholders until a valid response is received.
 
+## Output
+
+<img width="621" height="522" alt="image" src="https://github.com/user-attachments/assets/7713d1b3-146c-47ef-b726-59d57b2bddff" />
+
+
