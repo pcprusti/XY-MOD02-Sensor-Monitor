@@ -10,7 +10,7 @@ Use Python 3 with Tkinter enabled. Install the Python dependencies from the work
 pip install -r requirements.txt
 ```
 
-The monitor uses `pyserial` to list COM ports and `pymodbus==2.5.3` for Modbus RTU communication. Tkinter is included with most standard Python installations; on Windows, ensure Tcl/Tk support is selected in the Python installer.
+The monitor uses `pyserial` to list COM ports and `pymodbus==3.15.0` for Modbus RTU communication. Tkinter is included with most standard Python installations; on Windows, ensure Tcl/Tk support is selected in the Python installer.
 
 ## Start the Monitor
 

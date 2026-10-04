@@ -7,11 +7,11 @@ import threading
 import tkinter as tk
 from tkinter import ttk
 
-from pymodbus.client.sync import ModbusSerialClient as ModbusClient
+from pymodbus.client import ModbusSerialClient as ModbusClient
+from pymodbus.framer import FramerType
 from serial.tools import list_ports
 
 
-method = "rtu"
 baudrate = 9600
 stopbits = 1
 bytesize = 8
@@ -31,7 +31,7 @@ class XYMD02:
     def _read_register(self, address):
         """Read one input register and convert its tenths-scaled value."""
         response = self.client.read_input_registers(
-            address=address, count=1, unit=self.DeviceAddress
+            address=address, count=1, device_id=self.DeviceAddress
         )
         if response.isError() or not response.registers:
             raise IOError("Sensor returned an invalid Modbus response")
@@ -40,7 +40,7 @@ class XYMD02:
     def _read_holding_register(self, address):
         """Read one unscaled holding register from the sensor."""
         response = self.client.read_holding_registers(
-            address=address, count=1, unit=self.DeviceAddress
+            address=address, count=1, device_id=self.DeviceAddress
         )
         if response.isError() or not response.registers:
             raise IOError("Sensor returned an invalid Modbus response")
@@ -73,7 +73,9 @@ class XYMD02:
     def WriteDeviceAdress(self, NewDeviceAddress):
         """Write a new slave address to the sensor's address register."""
         return self.client.write_register(
-            address=0x0101, value=NewDeviceAddress, unit=self.DeviceAddress
+            address=0x0101,
+            value=NewDeviceAddress,
+            device_id=self.DeviceAddress,
         )
 
 
@@ -322,8 +324,8 @@ class SensorApp:
         client = None
         try:
             client = ModbusClient(
-                method=method,
                 port=port,
+                framer=FramerType.RTU,
                 stopbits=settings["stopbits"],
                 bytesize=settings["bytesize"],
                 parity=settings["parity"],
@@ -386,8 +388,6 @@ if __name__ == "__main__":
     root = tk.Tk()
     app = SensorApp(root)
     root.mainloop()
-
-
 
 
 

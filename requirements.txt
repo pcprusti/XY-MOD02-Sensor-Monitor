@@ -1,2 +1,2 @@
 pyserial>=3.5
-pymodbus==2.5.3
+pymodbus==3.15.0
